@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+html { scroll-behavior: smooth; }
+body {
+  background: #000000;
+  color: #F0EBE3;
+  font-family: 'Manrope', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+.t-giant {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(3.5rem, 10vw, 9rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+}
+@keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.ticker-animate { animation: ticker 24s linear infinite; }
+@keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.25} }
+.pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+@keyframes scroll-drop { 0%,100%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top} }
+.scroll-line { animation: scroll-drop 1.8s ease-in-out infinite; }
+@keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+.skeleton { background:linear-gradient(90deg,#171511 25%,#1C1A15 50%,#171511 75%);background-size:200% 100%;animation:shimmer 1.5s ease-in-out infinite; }
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+*,*::before,*::after{border-radius:0!important}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}}

@@ -9,12 +9,10 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://pagetwo.ph'),
   alternates: { canonical: '/' },
   openGraph: {
-    type: 'website',
-    url: 'https://pagetwo.ph',
+    type: 'website', url: 'https://pagetwo.ph',
     title: 'PageTwo.ph | Hidden Gem Clothes on Shopee Philippines',
     description: 'Handpicked underrated clothing shops on Shopee Philippines. Real finds, honest prices, no resellers.',
-    siteName: 'PageTwo.ph',
-    locale: 'en_PH',
+    siteName: 'PageTwo.ph', locale: 'en_PH',
     images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'PageTwo.ph' }],
   },
   twitter: {
@@ -32,28 +30,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Manrope:wght@300;400;500;600&display=swap"
-          rel="stylesheet"
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'WebSite',
-              name: 'PageTwo.ph',
-              url: 'https://pagetwo.ph',
-              description: 'Handpicked hidden gem clothing shops on Shopee Philippines.',
-              publisher: { '@type': 'Organization', name: 'PageTwo.ph', url: 'https://pagetwo.ph' },
-              potentialAction: {
-                '@type': 'SearchAction',
-                target: 'https://pagetwo.ph/?q={search_term_string}',
-                'query-input': 'required name=search_term_string',
-              },
-            }),
-          }}
-        />
+        <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          name: 'PageTwo.ph', url: 'https://pagetwo.ph',
+          description: 'Handpicked hidden gem clothing shops on Shopee Philippines.',
+          publisher: { '@type': 'Organization', name: 'PageTwo.ph', url: 'https://pagetwo.ph' },
+        }) }} />
       </head>
       <body>{children}</body>
     </html>

@@ -1,11 +1,19 @@
+import { Star } from '@phosphor-icons/react/dist/ssr'
+
+const items = [
+  'PageTwo.ph', 'Philippines', 'Real Prices',
+  'No Resellers', 'Updated Weekly', 'Good Clothes Exist',
+  'PageTwo.ph', 'Philippines', 'Real Prices',
+  'No Resellers', 'Updated Weekly', 'Good Clothes Exist',
+]
+
 export default function Ticker() {
-  const items = ['PageTwo.ph','×','Philippines','×','Real Prices','×','No Resellers','×','Updated Weekly','×','Good Clothes Exist','×']
-  const doubled = [...items, ...items]
   return (
-    <div className="bg-rust overflow-hidden whitespace-nowrap py-2.5" aria-hidden="true">
-      <div className="ticker-animate inline-flex gap-12">
-        {doubled.map((item, i) => (
-          <span key={i} className={`font-syne text-small font-bold tracking-[0.12em] uppercase flex-shrink-0 ${item === '×' ? 'text-white/40' : 'text-white'}`}>
+    <div className="bg-rust overflow-hidden py-2.5 border-y border-rust" aria-hidden="true">
+      <div className="animate-ticker inline-flex gap-10 whitespace-nowrap">
+        {items.map((item, i) => (
+          <span key={i} className="inline-flex items-center gap-3 label font-bold uppercase tracking-[0.16em] text-white flex-shrink-0">
+            <Star size={10} weight="fill" className="text-white/50" />
             {item}
           </span>
         ))}

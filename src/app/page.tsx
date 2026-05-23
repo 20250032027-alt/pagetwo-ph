@@ -1,7 +1,6 @@
 import Nav from '@/components/Nav'
 import Ticker from '@/components/Ticker'
 import Hero from '@/components/Hero'
-import StatsBar from '@/components/StatsBar'
 import PinterestStrip from '@/components/PinterestStrip'
 import Finds from '@/components/Finds'
 import Shops from '@/components/Shops'
@@ -17,7 +16,6 @@ export default function Home() {
       <Ticker />
       <main id="main-content">
         <Hero />
-        <StatsBar />
         <PinterestStrip />
         <Finds />
         <Shops />

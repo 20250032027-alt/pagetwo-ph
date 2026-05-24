@@ -1,7 +1,8 @@
 'use client'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Image, ArrowSquareOut, Tag } from '@phosphor-icons/react'
+import Image from 'next/image'
+import { Image as ImageIcon, ArrowSquareOut } from '@phosphor-icons/react'
 import { products } from '@/lib/data'
 import type { Category } from '@/lib/types'
 
@@ -16,14 +17,11 @@ const CATS: { id: Category; label: string }[] = [
 ]
 
 const BADGE = {
-  gem:  { cls: 'bg-rust text-white',              label: 'Hidden gem' },
-  sale: { cls: 'bg-shopee text-white',             label: 'On sale' },
-  new:  { cls: 'bg-[#1A3828] text-[#6EC992]',     label: 'New find' },
+  gem:  { cls: 'bg-rust text-white',          label: 'Hidden gem' },
+  sale: { cls: 'bg-shopee text-white',         label: 'On sale' },
+  new:  { cls: 'bg-[#1A3828] text-[#6EC992]', label: 'New find' },
 }
 
-const EMPTY_COUNT = 8
-
-/* Isolated empty card — no re-render cost */
 const EmptyCard = ({ index }: { index: number }) => (
   <motion.div
     className="bg-ink border-r border-b border-line flex flex-col"
@@ -31,12 +29,11 @@ const EmptyCard = ({ index }: { index: number }) => (
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.4, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
   >
-    {/* Image placeholder */}
-    <div className="aspect-[3/4] bg-ink3 flex flex-col items-center justify-center gap-3 relative">
-      <Image size={28} className="text-lo" weight="thin" />
+    <div className="aspect-[3/4] bg-ink3 flex flex-col items-center justify-center gap-3">
+      {/* aria-hidden since this is purely decorative */}
+      <ImageIcon size={28} className="text-lo" weight="thin" aria-hidden="true" />
       <span className="label uppercase tracking-[0.16em] text-lo font-medium">Coming soon</span>
     </div>
-    {/* Info skeleton */}
     <div className="p-5 flex-1 flex flex-col gap-3">
       <div className="label uppercase tracking-[0.12em] text-rust font-bold">Shop name</div>
       <div className="space-y-1.5">
@@ -60,17 +57,21 @@ export default function Finds() {
   return (
     <section className="px-8 md:px-12 py-20 md:py-28 max-w-[1400px] mx-auto" id="finds" aria-labelledby="finds-heading">
 
-      {/* Header — left aligned, not centered */}
+      {/* Header */}
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 items-end mb-12">
         <div>
           <div className="flex items-center gap-3 mb-3">
             <span className="w-5 h-px bg-rust" aria-hidden="true" />
             <span className="label font-semibold uppercase tracking-[0.22em] text-rust">Handpicked weekly</span>
           </div>
-          <h2 className="font-black text-hi tracking-tight leading-none" style={{ fontSize: 'clamp(1.8rem,3.5vw,3rem)', letterSpacing: '-0.03em' }} id="finds-heading">
+          <h2
+            className="font-black text-hi tracking-tight leading-none"
+            style={{ fontSize: 'clamp(1.8rem,3.5vw,3rem)', letterSpacing: '-0.03em' }}
+            id="finds-heading"
+          >
             Latest hidden gems
           </h2>
-          <p className="small font-light text-mid leading-relaxed mt-3 max-w-md">
+          <p className="label font-light text-mid leading-relaxed mt-3 max-w-md">
             We check every shop before anything goes up here. Real photos, real ratings, real stock.
           </p>
         </div>
@@ -110,7 +111,7 @@ export default function Finds() {
       >
         <AnimatePresence mode="popLayout">
           {isEmpty
-            ? Array.from({ length: EMPTY_COUNT }).map((_, i) => <EmptyCard key={i} index={i} />)
+            ? Array.from({ length: 8 }).map((_, i) => <EmptyCard key={i} index={i} />)
             : filtered.map((p, i) => (
               <motion.a
                 key={p.id}
@@ -126,27 +127,45 @@ export default function Finds() {
                 transition={{ duration: 0.35, delay: i * 0.04, ease: [0.16, 1, 0.3, 1] }}
                 layout
               >
+                {/* Image */}
                 <div className="aspect-[3/4] bg-ink3 relative overflow-hidden">
-                  {p.imageUrl
-                    ? <img src={p.imageUrl} alt={p.name} className="w-full h-full object-cover" loading="lazy" />
-                    : <div className="w-full h-full flex items-center justify-center"><Image size={28} className="text-lo" weight="thin" /></div>
-                  }
+                  {p.imageUrl ? (
+                    <Image
+                      src={p.imageUrl}
+                      alt={`${p.name} from ${p.shopName}`}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <ImageIcon size={28} className="text-lo" weight="thin" aria-hidden="true" />
+                    </div>
+                  )}
                   {p.badge && (
                     <span className={`absolute top-3 left-3 label font-bold uppercase tracking-[0.1em] px-2.5 py-1 ${BADGE[p.badge].cls}`}>
                       {BADGE[p.badge].label}
                     </span>
                   )}
                 </div>
+
+                {/* Info */}
                 <div className="p-5 flex-1 flex flex-col gap-2">
                   <div className="label uppercase tracking-[0.12em] text-rust font-bold">{p.shopName}</div>
-                  <div className="small font-normal text-hi leading-snug flex-1">{p.name}</div>
+                  <div className="text-sm font-normal text-hi leading-snug flex-1">{p.name}</div>
                   <div className="flex items-baseline gap-2 mt-1">
                     <span className="font-black text-hi text-lg" style={{ fontVariantNumeric: 'tabular-nums' }}>₱{p.price}</span>
                     {p.originalPrice && <span className="label text-lo line-through">₱{p.originalPrice}</span>}
-                    {p.originalPrice && <span className="label font-bold text-shopee bg-shopee/10 px-1.5 py-0.5">-{Math.round((1-p.price/p.originalPrice)*100)}%</span>}
+                    {p.originalPrice && (
+                      <span className="label font-bold text-shopee bg-shopee/10 px-1.5 py-0.5">
+                        -{Math.round((1 - p.price / p.originalPrice) * 100)}%
+                      </span>
+                    )}
                   </div>
                   <div className="flex items-center justify-between pt-3 border-t border-line mt-auto">
-                    <span className="text-[#C8943A] text-sm tracking-wide">{p.rating ? '★'.repeat(Math.round(p.rating)) + '☆'.repeat(5-Math.round(p.rating)) : '—'}</span>
+                    <span className="text-[#C8943A] text-sm">
+                      {p.rating ? '★'.repeat(Math.round(p.rating)) + '☆'.repeat(5 - Math.round(p.rating)) : '—'}
+                    </span>
                     <span className="label font-semibold text-shopee px-3 py-1.5 border border-shopee/25 hover:bg-shopee hover:text-white transition-colors inline-flex items-center gap-1">
                       Shopee <ArrowSquareOut size={11} weight="bold" />
                     </span>

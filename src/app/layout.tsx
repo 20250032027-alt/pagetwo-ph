@@ -1,5 +1,18 @@
 import type { Metadata } from 'next'
+import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
+
+const geist = Geist({
+  subsets: ['latin'],
+  variable: '--font-geist',
+  display: 'swap',
+})
+
+const geistMono = Geist_Mono({
+  subsets: ['latin'],
+  variable: '--font-geist-mono',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: 'PageTwo.ph | Hidden Gem Clothes on Shopee Philippines',
@@ -26,18 +39,20 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${geist.variable} ${geistMono.variable}`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'WebSite',
-          name: 'PageTwo.ph', url: 'https://pagetwo.ph',
-          description: 'Handpicked hidden gem clothing shops on Shopee Philippines.',
-          publisher: { '@type': 'Organization', name: 'PageTwo.ph', url: 'https://pagetwo.ph' },
-        }) }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: 'PageTwo.ph', url: 'https://pagetwo.ph',
+              description: 'Handpicked hidden gem clothing shops on Shopee Philippines.',
+              publisher: { '@type': 'Organization', name: 'PageTwo.ph', url: 'https://pagetwo.ph' },
+            }),
+          }}
+        />
       </head>
       <body>{children}</body>
     </html>

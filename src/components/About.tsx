@@ -21,13 +21,13 @@ export default function About() {
           </div>
           <div className="space-y-5 text-base font-light text-mid leading-relaxed">
             <p>
-              Shopee Philippines has thousands of sellers that never show up on the first page. They don&apos;t run ads. They don&apos;t have influencers. They just make or source good clothes at fair prices, and most people never find them.
+              Shopee has thousands of sellers that never show up on the first page. They don&apos;t run ads. They don&apos;t have influencers. They just make or source good clothes at fair prices, and most people never find them.
             </p>
             <p>
               This site is a weekly curation of exactly those sellers. We check the shop, verify the photos, confirm the shipping, and then post a direct link. No reselling, no inflated prices — just the shop and the product.
             </p>
             <p>
-              Based in Cagayan de Oro. Made for anyone in the Philippines who is tired of scrolling past the same paid listings.
+              Made for anyone who is tired of scrolling past the same paid listings.
             </p>
           </div>
         </div>

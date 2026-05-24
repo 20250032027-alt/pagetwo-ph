@@ -16,10 +16,10 @@ export default function Footer() {
 
           <div>
             <div className="font-black text-lg text-hi tracking-tight mb-3">
-              Page<span className="text-rust">Two</span>.ph
+              Page<span className="text-rust">Two</span>
             </div>
             <p className="small font-light text-mid leading-relaxed max-w-[220px]">
-              Underrated clothing shops on Shopee Philippines that never show up on page one. Updated every week, CDO.
+              Underrated clothing shops on Shopee that never show up on page one. Updated every week.
             </p>
             {/* Social icons */}
             <div className="flex items-center gap-4 mt-6">
@@ -61,8 +61,8 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pt-8">
-          <span className="label text-lo">&copy; 2025 PageTwo.ph. All rights reserved.</span>
-          <span className="label text-lo">Made in Cagayan de Oro, Philippines</span>
+          <span className="label text-lo">&copy; 2025 PageTwo. All rights reserved.</span>
+          <span className="label text-lo">Made in Cagayan de Oro</span>
         </div>
         <p className="label text-lo leading-relaxed mt-4 max-w-2xl">
           Not affiliated with Shopee or any listed shop. Product photos belong to their respective sellers. We earn a small commission through Shopee&apos;s affiliate program when you buy through our links.

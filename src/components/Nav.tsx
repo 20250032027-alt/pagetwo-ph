@@ -32,8 +32,8 @@ export default function Nav() {
     <>
       <nav className={`sticky top-0 z-[100] flex items-center justify-between px-8 md:px-12 h-14 transition-all duration-300 ${scrolled ? 'bg-ink/95 backdrop-blur-xl border-b border-line' : 'bg-transparent'}`}>
         {/* Logo — Link instead of <a> */}
-        <Link href="/" className="font-black text-base tracking-[-0.03em] text-hi" aria-label="PageTwo.ph home">
-          Page<span className="text-rust">Two</span>.ph
+        <Link href="/" className="font-black text-base tracking-[-0.03em] text-hi" aria-label="PageTwo home">
+          Page<span className="text-rust">Two</span>
         </Link>
 
         {/* Desktop links */}

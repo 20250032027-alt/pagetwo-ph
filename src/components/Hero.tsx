@@ -29,7 +29,7 @@ export default function Hero() {
           className="flex items-center gap-4 mb-8"
         >
           <span className="w-8 h-px bg-rust flex-shrink-0" aria-hidden="true" />
-          <span className="label font-semibold uppercase tracking-[0.22em] text-rust">Shopee Philippines</span>
+          <span className="label font-semibold uppercase tracking-[0.22em] text-rust">Shopee</span>
         </motion.div>
 
         {/* Headline — split layout, not centered */}

@@ -15,17 +15,17 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'PageTwo.ph | Hidden Gem Clothes on Shopee Philippines',
-  description: 'Handpicked underrated clothing shops on Shopee Philippines. Real finds, honest prices, no resellers. Updated every week.',
+  title: 'PageTwo.ph | Hidden Gem Clothes on Shopee',
+  description: 'Handpicked underrated clothing shops on Shopee. Real finds, honest prices, no resellers. Updated every week.',
   keywords: 'shopee hidden gems, best shopee clothes philippines, affordable fashion shopee ph, underrated shopee shops, shopee finds 2025',
   authors: [{ name: 'PageTwo.ph' }],
-  metadataBase: new URL('https://pagetwo.ph'),
+  metadataBase: new URL('https://pagetwo.com'),
   alternates: { canonical: '/' },
   openGraph: {
-    type: 'website', url: 'https://pagetwo.ph',
-    title: 'PageTwo.ph | Hidden Gem Clothes on Shopee Philippines',
-    description: 'Handpicked underrated clothing shops on Shopee Philippines. Real finds, honest prices, no resellers.',
-    siteName: 'PageTwo.ph', locale: 'en_PH',
+    type: 'website', url: 'https://pagetwo.com',
+    title: 'PageTwo.ph | Hidden Gem Clothes on Shopee',
+    description: 'Handpicked underrated clothing shops on Shopee. Real finds, honest prices, no resellers.',
+    siteName: 'PageTwo.ph', locale: 'en',
     images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'PageTwo.ph' }],
   },
   twitter: {
@@ -47,9 +47,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'WebSite',
-              name: 'PageTwo.ph', url: 'https://pagetwo.ph',
+              name: 'PageTwo.ph', url: 'https://pagetwo.com',
               description: 'Handpicked hidden gem clothing shops on Shopee Philippines.',
-              publisher: { '@type': 'Organization', name: 'PageTwo.ph', url: 'https://pagetwo.ph' },
+              publisher: { '@type': 'Organization', name: 'PageTwo.ph', url: 'https://pagetwo.com' },
             }),
           }}
         />

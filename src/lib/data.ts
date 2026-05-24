@@ -21,6 +21,18 @@ export const products: Product[] = [
   //   badge: 'gem',
   //   imageUrl: 'https://...',
   // },
+
+  {
+    id: '1634212459_40769415828',
+    shopName: 'Unknown Shop',
+    name: 'Unisex LIDER CULTURE FIT TEE - Ash Gray/White',
+    price: 1693,
+    originalPrice: 2581,
+    shopeeUrl: 'https://shopee.ph/unisex-lider-culture-fit-tee-ash-gray-white-i.1634212459.40769415828',
+    category: 'bottoms',
+    badge: 'gem',
+    imageUrl: 'https://down-ph.img.susercontent.com/file/vn-11134207-820l4-mil4az81zy1083',
+  },
 ]
 
 // ─── ADD YOUR SHOPS HERE ──────────────────────────────────────────────────────

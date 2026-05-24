@@ -28,7 +28,7 @@ export default function Shops() {
             </h2>
           </div>
           <p className="small font-light text-mid leading-relaxed">
-            These are the sellers we keep going back to. Good quality, prices that make sense, actual stock in the Philippines.
+            These are the sellers we keep going back to. Good quality, prices that make sense, actual stock.
           </p>
         </div>
 

@@ -5,9 +5,12 @@ export interface Product {
   id: string
   shopName: string
   name: string
+  description?: string
   price: number
   originalPrice?: number
   rating?: number
+  sold?: number
+  stock?: number
   shopeeUrl: string
   category: Exclude<Category, 'all'>
   badge?: BadgeType
@@ -22,5 +25,4 @@ export interface Shop {
   tags: string[]
   rating?: number
   shopeeUrl: string
-  accentColor?: string
 }

@@ -1,9 +1,9 @@
 import { Star } from '@phosphor-icons/react/dist/ssr'
 
 const items = [
-  'PageTwo.ph', 'Philippines', 'Real Prices',
+  'PageTwo', 'Shopee Finds', 'Real Prices',
   'No Resellers', 'Updated Weekly', 'Good Clothes Exist',
-  'PageTwo.ph', 'Philippines', 'Real Prices',
+  'PageTwo', 'Shopee Finds', 'Real Prices',
   'No Resellers', 'Updated Weekly', 'Good Clothes Exist',
 ]
 

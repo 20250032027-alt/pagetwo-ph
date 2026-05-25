@@ -12,7 +12,7 @@ const CATEGORIES: { id: Category; label: string }[] = [
   { id: 'accessories', label: 'Accessories' },
 ]
 
-const PAGE_SIZE = 16
+const PAGE_SIZE = 12
 
 const BADGE_STYLES = {
   gem:  'bg-rust text-white',
@@ -51,7 +51,8 @@ export default function Finds() {
   }
 
   return (
-    <section className="px-12 py-24 max-sm:px-6" id="finds" aria-labelledby="finds-heading">
+    <section className="px-12 py-24 max-sm:px-5" id="finds" aria-labelledby="finds-heading">
+
       {/* Header */}
       <div className="mb-12">
         <div className="flex items-center gap-3 mb-3">
@@ -71,76 +72,66 @@ export default function Finds() {
         Advertisement
       </div>
 
-      {/* Filters */}
-      <div className="flex gap-2 flex-wrap mb-8" role="group" aria-label="Filter by category">
-        {CATEGORIES.map(c => (
-          <button
-            key={c.id}
-            onClick={() => handleCategory(c.id)}
-            aria-pressed={active === c.id}
-            className={`text-micro font-semibold tracking-[0.08em] uppercase px-4 py-2 border transition-all duration-200 cursor-pointer ${
-              active === c.id
-                ? 'bg-rust border-rust text-white'
-                : 'bg-transparent border-white/[0.07] text-t-muted hover:border-white/[0.13] hover:text-t-primary'
-            }`}
-          >
-            {c.label}
-          </button>
-        ))}
+      {/* Filters + count row */}
+      <div className="flex items-center justify-between gap-4 flex-wrap mb-8">
+        <div className="flex gap-2 flex-wrap" role="group" aria-label="Filter by category">
+          {CATEGORIES.map(c => (
+            <button
+              key={c.id}
+              onClick={() => handleCategory(c.id)}
+              aria-pressed={active === c.id}
+              className={`text-micro font-semibold tracking-[0.08em] uppercase px-4 py-2 border transition-all duration-200 cursor-pointer ${
+                active === c.id
+                  ? 'bg-rust border-rust text-white'
+                  : 'bg-transparent border-white/[0.07] text-t-muted hover:border-white/[0.13] hover:text-t-primary'
+              }`}
+            >
+              {c.label}
+            </button>
+          ))}
+        </div>
+        {filtered.length > 0 && (
+          <span className="text-micro text-t-faint tracking-[0.08em] uppercase flex-shrink-0">
+            {filtered.length} find{filtered.length !== 1 ? 's' : ''}
+            {totalPages > 1 && ` · page ${page}/${totalPages}`}
+          </span>
+        )}
       </div>
 
-      {/* Count + page info */}
-      {filtered.length > 0 && (
-        <div className="flex items-center justify-between mb-6">
-          <span className="text-micro text-t-faint tracking-[0.08em] uppercase">
-            {filtered.length} find{filtered.length !== 1 ? 's' : ''}
-          </span>
-          {totalPages > 1 && (
-            <span className="text-micro text-t-faint tracking-[0.08em] uppercase">
-              Page {page} / {totalPages}
-            </span>
-          )}
-        </div>
-      )}
-
-      {/* Grid */}
+      {/* Grid — 3 col desktop, 2 col tablet, 2 col mobile */}
       {paginated.length === 0 ? (
-        <div className="grid grid-cols-4 gap-px bg-white/[0.07] border border-white/[0.07] max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-2" role="list">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <div key={i} className="bg-bg-base" role="listitem">
-              <div className="aspect-[3/4] bg-bg-4 relative overflow-hidden">
-                <PlaceholderImg />
-              </div>
+        <div className="grid grid-cols-3 gap-5 max-md:grid-cols-2 max-sm:grid-cols-2">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} className="bg-bg-2 border border-white/[0.06] overflow-hidden">
+              <div className="aspect-square bg-bg-4" />
               <div className="p-5">
-                <div className="text-micro font-bold tracking-[0.12em] uppercase text-rust mb-1">Shop name</div>
-                <div className="text-small font-normal text-t-primary leading-[1.45] mb-3">Product name</div>
-                <div className="flex items-baseline gap-2 mb-3">
-                  <span className="font-syne font-bold text-lg text-white">₱—</span>
-                </div>
+                <div className="h-2.5 w-20 bg-white/[0.06] mb-3 rounded-sm" />
+                <div className="h-3 w-full bg-white/[0.04] mb-1.5 rounded-sm" />
+                <div className="h-3 w-2/3 bg-white/[0.04] rounded-sm" />
               </div>
             </div>
           ))}
         </div>
       ) : (
-        <div className="grid grid-cols-4 gap-px bg-white/[0.07] border border-white/[0.07] max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-2" role="list">
+        <div className="grid grid-cols-3 gap-5 max-md:grid-cols-2 max-sm:grid-cols-2">
           {paginated.map(p => (
             <a
               key={p.id}
               href={p.shopeeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-bg-base block hover:bg-surface transition-colors duration-200 text-inherit no-underline"
-              role="listitem"
+              className="group bg-bg-2 border border-white/[0.06] overflow-hidden hover:border-white/[0.14] transition-colors duration-200 text-inherit no-underline block"
               aria-label={`${p.name} from ${p.shopName} — ₱${p.price}`}
             >
-              <div className="aspect-[3/4] bg-bg-4 relative overflow-hidden">
+              {/* Image */}
+              <div className="aspect-square relative overflow-hidden bg-bg-4">
                 {p.imageUrl ? (
                   <Image
                     src={p.imageUrl}
                     alt={p.name}
                     fill
-                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                    className="object-cover"
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
                     loading="lazy"
                     unoptimized
                   />
@@ -148,28 +139,39 @@ export default function Finds() {
                   <PlaceholderImg />
                 )}
                 {p.badge && (
-                  <span className={`absolute top-3 left-3 text-[0.6rem] font-bold tracking-[0.1em] uppercase px-2.5 py-1 ${BADGE_STYLES[p.badge]}`}>
+                  <span className={`absolute top-3 left-3 text-[0.58rem] font-bold tracking-[0.1em] uppercase px-2.5 py-1 ${BADGE_STYLES[p.badge]}`}>
                     {BADGE_LABELS[p.badge]}
                   </span>
                 )}
               </div>
-              <div className="p-5">
-                <div className="text-micro font-bold tracking-[0.12em] uppercase text-rust mb-1">{p.shopName}</div>
-                <div className="text-small font-normal text-t-primary leading-[1.45] mb-3">{p.name}</div>
-                <div className="flex items-baseline gap-2 mb-3">
-                  <span className="font-syne font-bold text-lg text-white tabular-nums">₱{p.price.toLocaleString()}</span>
-                  {p.originalPrice && <span className="text-micro text-t-faint line-through">₱{p.originalPrice.toLocaleString()}</span>}
+
+              {/* Info */}
+              <div className="p-5 pt-4">
+                <div className="text-micro font-bold tracking-[0.12em] uppercase text-rust mb-1.5">{p.shopName}</div>
+                <div className="text-sm font-normal text-t-primary leading-[1.5] mb-4 line-clamp-2">{p.name}</div>
+
+                <div className="flex items-baseline gap-2 mb-4">
+                  <span className="font-syne font-bold text-xl text-white tabular-nums">₱{p.price.toLocaleString()}</span>
                   {p.originalPrice && (
-                    <span className="text-micro font-bold text-shopee bg-shopee/10 px-1.5 py-0.5">
-                      -{Math.round((1 - p.price / p.originalPrice) * 100)}%
-                    </span>
+                    <>
+                      <span className="text-micro text-t-faint line-through">₱{p.originalPrice.toLocaleString()}</span>
+                      <span className="text-micro font-bold text-shopee bg-shopee/10 px-1.5 py-0.5">
+                        -{Math.round((1 - p.price / p.originalPrice) * 100)}%
+                      </span>
+                    </>
                   )}
                 </div>
-                <div className="flex items-center justify-between pt-3 border-t border-white/[0.07]">
-                  <span className="text-small text-[#C8943A]">
-                    {p.rating ? '★'.repeat(Math.round(p.rating)) + '☆'.repeat(5 - Math.round(p.rating)) : '—'}
-                  </span>
-                  <span className="text-micro font-semibold text-shopee px-3 py-1.5 border border-shopee/25 hover:bg-shopee hover:text-white transition-colors duration-200">
+
+                <div className="flex items-center justify-between pt-3.5 border-t border-white/[0.07]">
+                  <div className="flex flex-col gap-0.5">
+                    <span className="text-sm text-[#C8943A] leading-none">
+                      {p.rating ? '★'.repeat(Math.round(p.rating)) + '☆'.repeat(5 - Math.round(p.rating)) : '—'}
+                    </span>
+                    {p.sold ? (
+                      <span className="text-micro text-t-faint">{p.sold} sold</span>
+                    ) : null}
+                  </div>
+                  <span className="text-micro font-semibold text-shopee px-3 py-1.5 border border-shopee/25 group-hover:bg-shopee group-hover:text-white group-hover:border-shopee transition-colors duration-200">
                     Shopee ↗
                   </span>
                 </div>
@@ -181,12 +183,11 @@ export default function Finds() {
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2 mt-10">
+        <div className="flex items-center justify-center gap-2 mt-12">
           <button
             onClick={() => handlePage(page - 1)}
             disabled={page === 1}
-            aria-label="Previous page"
-            className="text-micro font-semibold tracking-[0.08em] uppercase px-4 py-2 border border-white/[0.07] text-t-muted hover:border-white/[0.13] hover:text-t-primary transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+            className="text-micro font-semibold tracking-[0.08em] uppercase px-4 py-2.5 border border-white/[0.07] text-t-muted hover:border-white/[0.13] hover:text-t-primary transition-all duration-200 disabled:opacity-25 disabled:cursor-not-allowed cursor-pointer"
           >
             ← Prev
           </button>
@@ -195,9 +196,8 @@ export default function Finds() {
             <button
               key={n}
               onClick={() => handlePage(n)}
-              aria-label={`Page ${n}`}
               aria-current={n === page ? 'page' : undefined}
-              className={`text-micro font-semibold tracking-[0.08em] px-3 py-2 border transition-all duration-200 cursor-pointer ${
+              className={`text-micro font-semibold w-9 h-9 border transition-all duration-200 cursor-pointer ${
                 n === page
                   ? 'bg-rust border-rust text-white'
                   : 'border-white/[0.07] text-t-muted hover:border-white/[0.13] hover:text-t-primary'
@@ -210,8 +210,7 @@ export default function Finds() {
           <button
             onClick={() => handlePage(page + 1)}
             disabled={page === totalPages}
-            aria-label="Next page"
-            className="text-micro font-semibold tracking-[0.08em] uppercase px-4 py-2 border border-white/[0.07] text-t-muted hover:border-white/[0.13] hover:text-t-primary transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+            className="text-micro font-semibold tracking-[0.08em] uppercase px-4 py-2.5 border border-white/[0.07] text-t-muted hover:border-white/[0.13] hover:text-t-primary transition-all duration-200 disabled:opacity-25 disabled:cursor-not-allowed cursor-pointer"
           >
             Next →
           </button>

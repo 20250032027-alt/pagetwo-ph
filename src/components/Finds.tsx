@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import Image from 'next/image'
 import { products } from '@/lib/data'
 import type { Category } from '@/lib/types'
 
@@ -36,7 +37,7 @@ export default function Finds() {
   const [page, setPage] = useState(1)
 
   const filtered = active === 'all' ? products : products.filter(p => p.category === active)
-  const totalPages = Math.ceil(filtered.length / PAGE_SIZE)
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
   const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
 
   function handleCategory(cat: Category) {
@@ -46,7 +47,6 @@ export default function Finds() {
 
   function handlePage(p: number) {
     setPage(p)
-    // Scroll to top of section
     document.getElementById('finds')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
@@ -135,7 +135,15 @@ export default function Finds() {
             >
               <div className="aspect-[3/4] bg-bg-4 relative overflow-hidden">
                 {p.imageUrl ? (
-                  <img src={p.imageUrl} alt={p.name} className="w-full h-full object-cover" loading="lazy" />
+                  <Image
+                    src={p.imageUrl}
+                    alt={p.name}
+                    fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    className="object-cover"
+                    loading="lazy"
+                    unoptimized
+                  />
                 ) : (
                   <PlaceholderImg />
                 )}

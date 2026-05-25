@@ -229,7 +229,7 @@ export const products: Product[] = [
     rating: 5,
     sold: 2,
     shopeeUrl: 'https://shopee.ph/lider-popeye-striped-zip-up-shirt-striped-gray-red-i.1634212459.27791638189',
-    category: 'tops',
+    category: 'outerwear',
     imageUrl: 'https://down-ph.img.susercontent.com/file/vn-11134207-820l4-mhpzeg5s10cif3',
   },
   {
@@ -457,7 +457,7 @@ export const products: Product[] = [
     rating: 5,
     sold: 1,
     shopeeUrl: 'https://shopee.ph/unisex-lider-outsider-sweatpants-thick-wide-leg-fleece-pants-i.1634212459.40669416019',
-    category: 'bottoms',
+    category: 'outerwear',
     imageUrl: 'https://down-ph.img.susercontent.com/file/vn-11134207-820l4-mhpz0hwk9og465',
   },
   {
@@ -521,7 +521,7 @@ export const products: Product[] = [
     rating: 4.9,
     sold: 2,
     shopeeUrl: 'https://shopee.ph/jacket-unisex-bodycon-boxy-wool-cardigan-lider-autumn-knit-c-i.1634212459.29541645177',
-    category: 'tops',
+    category: 'outerwear',
     imageUrl: 'https://down-ph.img.susercontent.com/file/vn-11134207-820l4-mhprexhki7t45d',
   },
   {
@@ -531,7 +531,7 @@ export const products: Product[] = [
     price: 3043,
     rating: 5,
     shopeeUrl: 'https://shopee.ph/unisex-thick-hooded-fleecejacket-lider-outsider-zipper-jacke-i.1634212459.27791638173',
-    category: 'tops',
+    category: 'outerwear',
     imageUrl: 'https://down-ph.img.susercontent.com/file/vn-11134207-820l4-mhpyu58r9y4hbf',
   },
   {
@@ -545,24 +545,13 @@ export const products: Product[] = [
     imageUrl: 'https://down-ph.img.susercontent.com/file/vn-11134207-820l4-mhpu74eo6z9h6a',
   },
   {
-    id: '1634212459_47404964430',
-    shopName: 'lider.closet',
-    name: 'Unisex Long Sleeve LIDER QUIET PAJAMA SHIRT',
-    price: 3413,
-    rating: 4.8,
-    sold: 1,
-    shopeeUrl: 'https://shopee.ph/unisex-long-sleeve-lider-quiet-pajama-shirt-i.1634212459.47404964430',
-    category: 'tops',
-    imageUrl: 'https://down-ph.img.susercontent.com/file/vn-11134207-820l4-mjpce9cv84jq7f',
-  },
-  {
     id: '1634212459_47054144119',
     shopName: 'lider.closet',
     name: 'Unisex LIDER HOMEBODY HOODIE KNIT SHIRT Zip Hoodie Sweater',
     price: 3380,
     rating: 5,
     shopeeUrl: 'https://shopee.ph/unisex-lider-homebody-hoodie-knit-shirt-zip-hoodie-sweater-i.1634212459.47054144119',
-    category: 'tops',
+    category: 'outerwear',
     imageUrl: 'https://down-ph.img.susercontent.com/file/vn-11134207-820l4-mjf8wjt3oeti2d',
   },
   {
@@ -572,7 +561,7 @@ export const products: Product[] = [
     price: 3092,
     rating: 4.5,
     shopeeUrl: 'https://shopee.ph/jacket-hoodie-wash-unisex-thick-fleece-color-lider-washed-co-i.1634212459.47453906253',
-    category: 'tops',
+    category: 'outerwear',
     imageUrl: 'https://down-ph.img.susercontent.com/file/vn-11134207-820l4-mjdwdvo66jupbb',
   },
   {
@@ -589,23 +578,13 @@ export const products: Product[] = [
   {
     id: '1634212459_40669415944',
     shopName: 'lider.closet',
-    name: 'Unisex Men\'s SHORTS LIDER MIDDAY MILES KHAKI SHORTS',
+    name: 'Unisex Men\\'s SHORTS LIDER MIDDAY MILES KHAKI SHORTS',
     price: 2350,
     rating: 5,
     sold: 1,
     shopeeUrl: 'https://shopee.ph/unisex-men-s-shorts-lider-midday-miles-khaki-shorts-i.1634212459.40669415944',
     category: 'bottoms',
     imageUrl: 'https://down-ph.img.susercontent.com/file/vn-11134207-820l4-mhpufjmjwc1web',
-  },
-  {
-    id: '1634212459_44019404463',
-    shopName: 'lider.closet',
-    name: 'Unisex Plaid Sleeping BoxerShorts Cotton Sweat Absorbent LIDER BOXER SHORTS',
-    price: 1876,
-    rating: 5,
-    shopeeUrl: 'https://shopee.ph/unisex-plaid-sleeping-boxershorts-cotton-sweat-absorbent-lid-i.1634212459.44019404463',
-    category: 'bottoms',
-    imageUrl: 'https://down-ph.img.susercontent.com/file/vn-11134207-820l4-mhpuewelsjr584',
   },
   {
     id: '1634212459_44019404429',
@@ -634,7 +613,7 @@ export const products: Product[] = [
     price: 2681,
     rating: 4.8,
     shopeeUrl: 'https://shopee.ph/lider-utility-belt-shorts-i.1634212459.45654964898',
-    category: 'bottoms',
+    category: 'accessories',
     imageUrl: 'https://down-ph.img.susercontent.com/file/vn-11134207-81ztc-mk1y4qqbjfgk44',
   },
   {
@@ -686,7 +665,7 @@ export const products: Product[] = [
     price: 2230,
     rating: 4.9,
     shopeeUrl: 'https://shopee.ph/unisex-lider-x-leather-belt-metal-logo-belt-matte-surface-po-i.1634212459.29441645184',
-    category: 'tops',
+    category: 'accessories',
     imageUrl: 'https://down-ph.img.susercontent.com/file/vn-11134207-820l4-mhpv4hwdmubo8b',
   },
   {
@@ -697,7 +676,7 @@ export const products: Product[] = [
     rating: 5,
     sold: 1,
     shopeeUrl: 'https://shopee.ph/lider-slim-leather-belt-small-leather-belt-i.1634212459.29441645183',
-    category: 'tops',
+    category: 'accessories',
     imageUrl: 'https://down-ph.img.susercontent.com/file/vn-11134207-820l4-mi4ot4a7kmx31e',
   },
   {
@@ -707,7 +686,7 @@ export const products: Product[] = [
     price: 674,
     rating: 5,
     shopeeUrl: 'https://shopee.ph/lider-happy-pin-centre-set-i.1634212459.29341645213',
-    category: 'tops',
+    category: 'accessories',
     imageUrl: 'https://down-ph.img.susercontent.com/file/vn-11134207-7ras8-mas53c1yzufs0c',
   },
   {
@@ -737,7 +716,7 @@ export const products: Product[] = [
     price: 1806,
     rating: 4.8,
     shopeeUrl: 'https://shopee.ph/lider-quiet-beret-hat-wide-brim-retro-beret-i.1634212459.40579148128',
-    category: 'tops',
+    category: 'accessories',
     imageUrl: 'https://down-ph.img.susercontent.com/file/vn-11134207-81ztc-mllwvj9k581v7c',
   },
   {
@@ -747,29 +726,8 @@ export const products: Product[] = [
     price: 2421,
     rating: 4.8,
     shopeeUrl: 'https://shopee.ph/vest-sleeveless-unisex-felt-layer-hugged-v-neck-gilet-i.1634212459.45852041251',
-    category: 'sets',
+    category: 'accessories',
     imageUrl: 'https://down-ph.img.susercontent.com/file/vn-11134207-820l4-mie93ajjvlz4c7',
-  },
-  {
-    id: '1634212459_44019404383',
-    shopName: 'lider.closet',
-    name: 'SleepingShorts X CIPHER BOXER SHORTS',
-    price: 1346,
-    rating: 5,
-    sold: 1,
-    shopeeUrl: 'https://shopee.ph/sleepingshorts-x-cipher-boxer-shorts-i.1634212459.44019404383',
-    category: 'tops',
-    imageUrl: 'https://down-ph.img.susercontent.com/file/vn-11134207-820l4-mhpys7dqgqh214',
-  },
-  {
-    id: '1634212459_44478718936',
-    shopName: 'lider.closet',
-    name: 'Foldable Natural Sedge MAT Size 80x140 Thick WOVEN Printed LIDER Design CODE WOVEN FLOOR MAT',
-    price: 1794,
-    rating: 5,
-    shopeeUrl: 'https://shopee.ph/foldable-natural-sedge-mat-size-80x140-thick-woven-printed-l-i.1634212459.44478718936',
-    category: 'tops',
-    imageUrl: 'https://down-ph.img.susercontent.com/file/vn-11134207-81ztc-mklweyqvlds3c0',
   },
 ]
 
@@ -788,7 +746,7 @@ export const shops: Shop[] = [
 
 // ─── SITE STATS ───────────────────────────────────────────────────────────────
 export const siteStats = {
-  finds: '74',
+  finds: '70',
   shops: '1',
-  avgPrice: '₱2,100',
+  avgPrice: '₱2,300',
 }

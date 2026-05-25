@@ -1,4 +1,4 @@
-export type Category = 'all' | 'tops' | 'bottoms' | 'sets' | 'outerwear' | 'y2k' | 'basics'
+export type Category = 'all' | 'tops' | 'bottoms' | 'outerwear' | 'accessories'
 export type BadgeType = 'gem' | 'sale' | 'new'
 
 export interface Product {

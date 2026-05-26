@@ -1,99 +1,70 @@
-/**
- * PageTwo — Batch Product Adder
- *
- * HOW TO USE:
- * 1. Edit scripts/queue.json with your product list
- * 2. For each product: open it in browser, run bookmarklet, save product.json
- *    Then run: node scripts/batch-add.mjs
- *
- * OR: just edit queue.json manually if you know the details
- * and run: node scripts/batch-add.mjs --from-queue
- */
+// batch-add.mjs — reads scripts/queue.json and appends to src/lib/data.ts
+// Skips nothing. Duplicate prevention happens at the extension level.
+// Usage: node scripts/batch-add.mjs --from-queue
 
-import fs   from 'fs'
-import path from 'path'
+import { readFileSync, writeFileSync } from 'fs'
+import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const dataPath  = path.join(__dirname, '..', 'src', 'lib', 'data.ts')
-const queuePath = path.join(__dirname, 'queue.json')
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const QUEUE_PATH   = resolve(__dirname, 'queue.json')
+const DATA_PATH    = resolve(__dirname, '../src/lib/data.ts')
 
-const fromQueue = process.argv.includes('--from-queue')
-
-function addToData(p, category, badge) {
-  let dataFile = fs.readFileSync(dataPath, 'utf8')
-  const id = p.shopid + '_' + p.itemid
-
-  if (dataFile.includes("id: '" + id + "'")) {
-    console.log('  ⚠️  Already exists, skipping: ' + p.name.slice(0, 40))
-    return false
-  }
-
-  const slug      = p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60)
-  const shopeeUrl = 'https://shopee.ph/' + slug + '-i.' + p.shopid + '.' + p.itemid
-  const e         = (s) => String(s || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'")
-
-  const entry = '\n  {\n' +
-    "    id: '" + id + "',\n" +
-    "    shopName: '" + e(p.shopName) + "',\n" +
-    "    name: '" + e(p.name) + "'," +
-    (p.description ? "\n    description: '" + e(p.description) + "'," : '') +
-    '\n    price: ' + p.price + ',' +
-    (p.originalPrice && p.originalPrice > p.price ? '\n    originalPrice: ' + p.originalPrice + ',' : '') +
-    (p.rating ? '\n    rating: ' + p.rating + ',' : '') +
-    (p.sold ? '\n    sold: ' + p.sold + ',' : '') +
-    "\n    shopeeUrl: '" + shopeeUrl + "'," +
-    "\n    category: '" + category + "'," +
-    (badge ? "\n    badge: '" + badge + "'," : '') +
-    (p.imageUrl ? "\n    imageUrl: '" + e(p.imageUrl) + "'," : '') +
-    '\n  },'
-
-  dataFile = dataFile.replace(
-    /export const products: Product\[\] = \[([\s\S]*?)\]/,
-    function(_, inner) { return 'export const products: Product[] = [' + inner + entry + '\n]' }
-  )
-  fs.writeFileSync(dataPath, dataFile, 'utf8')
-  console.log('  ✅  Added: ' + p.name.slice(0, 50))
-  return true
+const args = process.argv.slice(2)
+if (!args.includes('--from-queue')) {
+  console.error('Usage: node scripts/batch-add.mjs --from-queue')
+  process.exit(1)
 }
 
-if (fromQueue) {
-  // Batch mode — read from queue.json
-  if (!fs.existsSync(queuePath)) {
-    console.error('\n❌  scripts/queue.json not found. Create it first.\n')
-    process.exit(1)
-  }
-  const queue = JSON.parse(fs.readFileSync(queuePath, 'utf8'))
-  console.log('\n🚀  Processing ' + queue.length + ' products from queue...\n')
-  let added = 0
-  for (const item of queue) {
-    if (!item.price || item.price === 0) {
-      console.log('  ⏭️   Skipping (no price): ' + (item.name || item.shopeeUrl || '?'))
-      continue
-    }
-    if (addToData(item, item.category || 'tops', item.badge)) added++
-  }
-  console.log('\n📝  Done. Added ' + added + ' products.')
-  console.log('\n   git add . && git commit -m "batch add products" && git push\n')
-} else {
-  // Single mode — read product.json
-  const jsonPath = path.join(__dirname, 'product.json')
-  if (!fs.existsSync(jsonPath)) {
-    console.error('\n❌  scripts/product.json not found. Run the bookmarklet first.\n')
-    process.exit(1)
-  }
-  const p        = JSON.parse(fs.readFileSync(jsonPath, 'utf8'))
-  const category = process.argv[2] || 'tops'
-  const badge    = process.argv[3] || ''
-
-  if (!p.price || p.price === 0) {
-    console.error('\n❌  Price is 0 in product.json.')
-    console.error('    Open it and fill in the price manually, then re-run.\n')
-    process.exit(1)
-  }
-
-  console.log('\n📦  Adding: ' + p.name)
-  addToData(p, category, badge)
-  fs.unlinkSync(jsonPath)
-  console.log('\n   git add . && git commit -m "add product" && git push\n')
+// Read queue
+let queue
+try {
+  queue = JSON.parse(readFileSync(QUEUE_PATH, 'utf8'))
+} catch (e) {
+  console.error('Could not read scripts/queue.json:', e.message)
+  process.exit(1)
 }
+
+if (!queue.length) {
+  console.log('Queue is empty, nothing to add.')
+  process.exit(0)
+}
+
+// Read current data.ts
+let dataFile = readFileSync(DATA_PATH, 'utf8')
+
+// Find where the products array closes
+const closingMarker = '\n]\n'
+const insertAt = dataFile.lastIndexOf(closingMarker)
+if (insertAt === -1) {
+  console.error('Could not find closing ] in data.ts — is the file malformed?')
+  process.exit(1)
+}
+
+// Build new entries
+function makeEntry(p) {
+  const s = JSON.stringify
+  let e = '  {\n'
+  e += `    id: ${s(p.id || '')},\n`
+  e += `    shopName: ${s(p.shopName || '')},\n`
+  e += `    name: ${s(p.name || '')},\n`
+  e += `    price: ${p.price || 0},\n`
+  if (p.originalPrice && p.originalPrice > p.price) e += `    originalPrice: ${p.originalPrice},\n`
+  if (p.rating)    e += `    rating: ${p.rating},\n`
+  if (p.sold)      e += `    sold: ${p.sold},\n`
+  e += `    shopeeUrl: ${s(p.shopeeUrl || '')},\n`
+  e += `    category: ${s(p.category || 'tops')},\n`
+  if (p.badge)     e += `    badge: ${s(p.badge)} as BadgeType,\n`
+  if (p.imageUrl)  e += `    imageUrl: ${s(p.imageUrl)},\n`
+  e += '  },'
+  return e
+}
+
+const newEntries = '\n' + queue.map(makeEntry).join('\n') + '\n'
+
+// Splice into file
+const updatedFile = dataFile.slice(0, insertAt) + newEntries + dataFile.slice(insertAt)
+writeFileSync(DATA_PATH, updatedFile, 'utf8')
+
+console.log(`✓ Added ${queue.length} products to data.ts`)
+console.log(`  Run: git add . && git commit -m "add ${queue.length} products" && git push`)

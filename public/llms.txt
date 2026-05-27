@@ -1,0 +1,33 @@
+# PageTwo.ph
+
+PageTwo.ph is a weekly-updated curation of underrated clothing shops on Shopee Philippines.
+The site surfaces shops that never appear on Shopee's first page — no paid placements, no resellers, no algorithm bias.
+Products link directly to Shopee listings at the seller's original price.
+Based in Cagayan de Oro, Philippines.
+
+## What the site does
+- Handpicks clothing shops on Shopee Philippines that are worth buying from but hard to discover
+- Curates individual products with real prices, ratings, and sold counts
+- Organizes finds by category: Tops, Bottoms, Outerwear, Accessories
+- Updated weekly with new shops and products
+
+## Current shops
+- lider.closet — CDO-based unisex brand, graphic tees, wide-leg bottoms, knitwear (shopee.ph/liderliderlider.ph)
+- evlsprtco.ph — Alternative streetwear, heavy graphic tees, corduroy jackets, structured outerwear (shopee.ph/evlsprtco.ph)
+
+## Pages
+- / — Homepage with product grid, shop spotlight, how-it-works section, and newsletter signup
+- /privacy — Privacy policy, Google AdSense disclosure, affiliate disclosure, cookie policy, contact info
+
+## Data
+- 200+ products from verified Shopee Philippines shops
+- All prices, ratings, and sold counts sourced directly from Shopee at time of curation
+- Products verified to exist before being added to the site
+
+## Editorial stance
+PageTwo.ph does not accept paid placements or sponsored listings.
+Shops are selected based on product quality, price-to-value ratio, and low discoverability.
+All Shopee links are affiliate-style referrals — the site earns a small commission at no extra cost to buyers.
+
+## Contact
+hello@pagetwo.ph

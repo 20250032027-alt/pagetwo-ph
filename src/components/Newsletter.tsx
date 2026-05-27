@@ -1,75 +1,83 @@
 'use client'
 import { useState } from 'react'
-import { ArrowRight, CheckCircle } from '@phosphor-icons/react'
 
 export default function Newsletter() {
-  const [email, setEmail]   = useState('')
-  const [done, setDone]     = useState(false)
-  const [error, setError]   = useState(false)
+  const [email, setEmail] = useState('')
+  const [status, setStatus] = useState<'idle' | 'loading' | 'done' | 'error'>('idle')
 
-  const handle = () => {
+  const handle = async () => {
     if (!email || !email.includes('@')) {
-      setError(true)
-      setTimeout(() => setError(false), 1500)
+      setStatus('error')
+      setTimeout(() => setStatus('idle'), 1500)
       return
     }
-    setDone(true)
+    setStatus('loading')
+    try {
+      const res = await fetch('https://formspree.io/f/xwvzqkor', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+      if (res.ok) {
+        setStatus('done')
+      } else {
+        setStatus('error')
+        setTimeout(() => setStatus('idle'), 2000)
+      }
+    } catch {
+      setStatus('error')
+      setTimeout(() => setStatus('idle'), 2000)
+    }
   }
 
   return (
-    <section className="bg-ink3 border-b border-line py-20 md:py-28" id="newsletter" aria-labelledby="nl-heading">
-      <div className="px-8 md:px-12 max-w-[1400px] mx-auto">
+    <section className="bg-[#111009] px-12 py-24 max-sm:px-6" id="newsletter" aria-labelledby="nl-heading">
+      <div className="max-w-lg mx-auto text-center">
+        <h2
+          className="font-syne font-bold text-white mb-3"
+          style={{ fontSize: 'clamp(1.6rem,2.8vw,2.4rem)', letterSpacing: '-0.025em' }}
+          id="nl-heading"
+        >
+          New finds every week.
+        </h2>
+        <p className="text-base font-light text-t-muted leading-[1.8] mb-8">
+          Subscribe and get fresh Shopee picks in your inbox before they sell out. No spam, just good clothes at decent prices.
+        </p>
 
-        {/* Left-aligned, not centered */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <div className="flex items-center gap-3 mb-4">
-              <span className="w-5 h-px bg-rust" aria-hidden="true" />
-              <span className="label font-semibold uppercase tracking-[0.22em] text-rust">Newsletter</span>
-            </div>
-            <h2 className="font-black text-hi tracking-tight mb-4" style={{ fontSize: 'clamp(1.8rem,3.5vw,3rem)', letterSpacing: '-0.03em' }} id="nl-heading">
-              New finds every week.
-            </h2>
-            <p className="text-base font-light text-mid leading-relaxed">
-              Subscribe and get fresh Shopee picks in your inbox before they sell out. No spam, just good clothes at decent prices.
-            </p>
+        {status === 'done' ? (
+          <div className="bg-[#1A3828] border border-[#2A5A3A] px-6 py-4 text-small font-medium text-[#6EC992]">
+            You&apos;re in. New finds hit your inbox every week.
           </div>
+        ) : (
+          <div className="flex gap-2 max-sm:flex-col" role="form" aria-label="Newsletter signup">
+            <label htmlFor="nl-email" className="sr-only">Email address</label>
+            <input
+              id="nl-email"
+              type="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && handle()}
+              placeholder="your@email.com"
+              autoComplete="email"
+              aria-required="true"
+              disabled={status === 'loading'}
+              className={`flex-1 bg-[#171511] text-t-primary text-base font-light px-4 py-3.5 outline-none transition-colors duration-200 placeholder:text-t-faint border ${
+                status === 'error' ? 'border-rust' : 'border-white/[0.13] focus:border-rust'
+              } disabled:opacity-50`}
+            />
+            <button
+              onClick={handle}
+              disabled={status === 'loading'}
+              className="bg-rust text-white text-small font-semibold tracking-[0.04em] px-7 py-3.5 hover:bg-rust-dim transition-colors duration-200 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {status === 'loading' ? 'Subscribing...' : 'Subscribe'}
+            </button>
+          </div>
+        )}
 
-          <div>
-            {done ? (
-              <div className="flex items-center gap-3 bg-[#1A3828] border border-[#2A5A3A] px-6 py-5">
-                <CheckCircle size={20} className="text-[#6EC992]" weight="fill" />
-                <span className="small font-medium text-[#6EC992]">You&apos;re in. New finds hit your inbox every week.</span>
-              </div>
-            ) : (
-              <div role="form" aria-label="Newsletter signup">
-                <label htmlFor="nl-email" className="label uppercase tracking-[0.16em] text-mid font-semibold block mb-3">
-                  Your email
-                </label>
-                <div className="flex gap-0">
-                  <input
-                    id="nl-email"
-                    type="email"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    onKeyDown={e => e.key === 'Enter' && handle()}
-                    placeholder="your@email.com"
-                    autoComplete="email"
-                    aria-required="true"
-                    className={`flex-1 bg-ink border text-hi small font-light px-5 py-4 outline-none transition-colors duration-200 placeholder:text-lo ${error ? 'border-rust' : 'border-line2 focus:border-rust'}`}
-                  />
-                  <button
-                    onClick={handle}
-                    className="bg-rust text-white small font-semibold px-6 py-4 hover:bg-rust-dark transition-colors duration-200 inline-flex items-center gap-2 active:scale-[0.98] whitespace-nowrap border border-rust"
-                  >
-                    Subscribe <ArrowRight size={14} weight="bold" />
-                  </button>
-                </div>
-                {error && <p className="label text-rust mt-2 font-medium">Please enter a valid email address.</p>}
-              </div>
-            )}
-          </div>
-        </div>
+        {status === 'error' && (
+          <p className="text-xs text-rust mt-2">Something went wrong. Please try again.</p>
+        )}
       </div>
     </section>
   )
